@@ -4,6 +4,8 @@ const request = require('supertest');
 const propertyCI = require('../helpers/shouldPropertyCI');
 const utilsAndConst = require('../helpers/utilsAndConst');
 const REGEX_LINK = utilsAndConst.LINK;
+const codeToResponse = require('../../../api/helpers/errorCodes').codeToResponse;
+;
 
 const createTestTenant = require('../helpers/dbTest').createTestTenant;
 const createDisabledTestTenant = require('../helpers/dbTest').createDisbaledTestTenant;
@@ -73,7 +75,6 @@ require('../helpers/security/generateAuthorization')().then(authorization => {
                 contacts: ["test@example.com"]
               }
             )
-            .expect('Content-Type', /json/)
             .expect(201)
             .end((err, res) => {
               should.not.exist(err);
@@ -215,7 +216,7 @@ require('../helpers/security/generateAuthorization')().then(authorization => {
 
       describe('PUT /admin/tenants/test/settings', () => {
 
-        it('should return settings of the new tenant', done => {
+        it('should update settings of the new tenant', done => {
 
           createTestTenant()
             .then(() => {
@@ -224,17 +225,17 @@ require('../helpers/security/generateAuthorization')().then(authorization => {
                 .set('Accept', 'application/json')
                 .set('Authorization', authorization)
                 .send(DUMMY_SETTINGS)
-                .expect('Content-Type', /json/)
                 .expect(200)
                 .end((err, res) => {
                   should.not.exist(err);
-                  res.body.should.match(DUMMY_SETTINGS);
+                  res.body.should
+                    .be.empty();
                   done();
                 });
             });
         });
 
-        it('should not return settings of disabled tenant', done => {
+        it('should not update settings of disabled tenant', done => {
 
           createDisabledTestTenant()
             .then(() => {
@@ -243,11 +244,9 @@ require('../helpers/security/generateAuthorization')().then(authorization => {
                 .set('Accept', 'application/json')
                 .set('Authorization', authorization)
                 .send(DUMMY_SETTINGS)
-                .expect('Content-Type', /json/)
                 .expect(200)
                 .end((err, res) => {
                   should.not.exist(err);
-                  res.body.should.match(DUMMY_SETTINGS);
                   done();
                 });
             });

@@ -6,9 +6,9 @@ process.env.NODE_ENV = 'test';
 process.env.ALLOW_CONFIG_MUTATIONS = true;
 const mongoose = require('mongoose');
 const dbConnection = require('../../../api/models/dbConnection');
-const TenantModel = require('../../../api/models/tenant').model;
-
 const tenant = require('../../../api/models/tenant');
+const TenantModel = tenant.model;
+
 const createTestTenant = name =>
     tenant
     .create(
@@ -19,6 +19,7 @@ const createTestTenant = name =>
     .then(tenant =>
       TenantModel.findOneAndUpdate({id: tenant.id}, { $set: { groupRoleMapping: { "all": [ "mng", "snd", "usr" ] } } }, { new: true })
     );
+
 
 module.exports = {
   createTestTenant,

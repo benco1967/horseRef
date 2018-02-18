@@ -68,7 +68,7 @@ function createTenant(req, res) {
   tenants.create(newTenant.id, newTenant.texts.description, newTenant.contacts)
     .then(tenant => {
       addTenantUri(res, tenant.id);
-      res.status(201).json();
+      res.status(201).end();
     })
     .catch(err => {
       codeToResponse(res, err);
@@ -99,8 +99,8 @@ function setAdminTenantSettings(req, res) {
   const tenantId = getParam(req, "tenant", "value", "id");
   const settings = req.swagger.params.settings.value;
   tenants.update(tenantId, "adminSettings", settings)
-    .then(settings => {
-      res.status(200).json(settings);
+    .then(() => {
+      res.status(200).end();
     })
     .catch(err => {
       codeToResponse(res, err);

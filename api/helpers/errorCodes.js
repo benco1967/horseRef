@@ -11,6 +11,7 @@ const CODES = {
   FORBIDDEN_ID     : { name: 'FORBIDDEN_ID'     , status: 409, message: "" },
   GONE             : { name: 'GONE'             , status: 410, message: "This tenant is no more available" },
   UNKNOW           : { name: 'UNKNOW'           , status: 500, message: "" },
+  NOT_IMPLEMENTED  : { name: 'NOT_IMPLEMENTED'  , status: 501, message: "Service not implemented" },
   UNABLE_TO_CONNECT: { name: 'UNABLE_TO_CONNECT', status: 503, message: "Service unavailable, DB unreachable" },
   };
 
@@ -23,7 +24,9 @@ module.exports = {
   FORBIDDEN_ID     : Symbol.for('FORBIDDEN_ID'     ),
   GONE             : Symbol.for('GONE'             ),
   UNKNOW           : Symbol.for('UNKNOW'           ),
+  NOT_IMPLEMENTED  : Symbol.for('NOT_IMPLEMENTED'  ),
   UNABLE_TO_CONNECT: Symbol.for('UNABLE_TO_CONNECT'),
+
   /**
    * Fonction convertisant une erreur interne en une erreur http
    * @param res la réponse contenant le json de l'erreur
@@ -33,6 +36,11 @@ module.exports = {
     const code = CODES[err && err.code && Symbol.keyFor(err.code)] || CODES.UNKNOW;
     error(`Internal error : (${code.name}) ${err && err.message && JSON.stringify(err) || err}`);
     res.status(code.status).json({ name: err && err.name || code.name, message: err && err.message || err || code.message });
+  },
+  errorToResponse: (res, status, msg) => {
+    const code = CODES[Symbol.keyFor(status)];
+    error(`Internal error : (${code.name}) ${msg || code.message}`);
+    res.status(code.status).json({ name: code.name, message: msg || code.message });
   },
   error: (status, msg) => {
     const code = CODES[Symbol.keyFor(status)];

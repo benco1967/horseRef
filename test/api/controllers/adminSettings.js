@@ -2,7 +2,6 @@ const should = require('should');
 const request = require('supertest');
 
 const createTestTenant = require('../helpers/dbTest').createTestTenant;
-const utilsAndConst = require('../helpers/utilsAndConst');
 
 const server = require('../../../app');
 

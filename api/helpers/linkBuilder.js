@@ -3,7 +3,7 @@
  */
 const _add = (self, hrefXorLink, rel, title, name, method, type) => {
   if(self.links !== '') self.links += ', ';
-  self.links +=`<${hrefXorLink}>; rel="${rel}"; method="${method}";`;
+  self.links += `<${hrefXorLink}>; rel="${rel}"; method="${method}";`;
   if(title) self.links += ` title="${title}";`;
   if(name) self.links += ` name="${name}";`;
   self.links += ` type="${type}"`;
