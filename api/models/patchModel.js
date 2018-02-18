@@ -5,9 +5,10 @@ const ajv = new require('ajv')();
 const jsonPatch = {
   "$id": "http://json-patch.org/jsonpatch.json",
     "description": "A JSON Schema describing a JSON Patch",
+    "type": "array",
     "items": {
     "description": "one JSON Patch operation",
-      "allOf": [
+    "allOf": [
       {
         "description": "Members common to all operations",
         "type": "object",
