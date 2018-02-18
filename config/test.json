@@ -1,0 +1,26 @@
+{
+  "db": {
+    "user": "test",
+    "pwd": "test",
+    "dbName": "horsesRef"
+  },
+  "auth": {
+    "secret": "secret",
+    "issuer": "test",
+    "audience": "test",
+    "adminGroupRoleMapping" : { "all": [ "adm", "mng", "ins", "usr" ] }
+  },
+  "sign": {
+    "secret": "secret",
+    "payload": {
+      "Grp" : { "admin": [ "admin" ], "test": [ "all" ] },
+      "Usr": "testuser"
+    },
+    "options": {
+      "algorithm": "HS256",
+      "expiresIn": "365d",
+      "issuer": "test",
+      "audience": "test"
+    }
+  }
+}

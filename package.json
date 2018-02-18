@@ -1,0 +1,37 @@
+{
+  "name": "horsesRef",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Reférentiel de chevaux",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "ajv": "^6.1.1",
+    "express": "^4.12.3",
+    "fast-json-patch": "^2.0.6",
+    "js-yaml": "^3.10.0",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.9",
+    "swagger": "^0.7.5",
+    "swagger-express-mw": "^0.1.0",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11",
+    "should": "^7.1.0",
+    "should-http": "^0.1.1",
+    "supertest": "^1.0.0",
+    "swagger-editor": "^3.2.5"
+  },
+  "scripts": {
+    "start": "DEBUG=\"horsesRef:*,swagger-tools*\" nodemon $NODE_DEBUG_OPTION app.js",
+    "generateKey": "NODE_ENV=generateKey node test/api/helpers/security/generateAuthorization.js",
+    "test": "swagger project test",
+    "test_debug": "DEBUG=\"horsesRef:*,swagger-tools*\" swagger project test",
+    "edit": "swagger project edit",
+    "swagger": "swagger",
+    "swagger_help": "swagger project test --help"
+  }
+}

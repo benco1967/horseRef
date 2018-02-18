@@ -1,0 +1,7 @@
+{
+  "db": {
+    "user": "myusername",
+    "pwd": "mypassword",
+    "dbName": "horsesRef"
+  }
+}
