@@ -2,8 +2,10 @@
 
 
 const SwaggerExpress = require('swagger-express-mw');
-const app = require('express')();
+const express = require('express');
+const app = express();
 const debug = require('debug')("horsesRef:info");
+const path = require('path');
 
 
 module.exports = app; // for testing
@@ -29,6 +31,12 @@ SwaggerExpress.create(configSwagger, (err, swaggerExpress) => {
 
   // install middleware
   swaggerExpress.register(app);
+
+  app.get('/', (req, res) => {
+    res.redirect('/ui');
+  });
+
+  app.use('/ui', express.static(path.join(__dirname, 'ui')));
 
   app.listen(config.get('port'));
 
