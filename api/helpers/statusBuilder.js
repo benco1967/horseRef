@@ -1,3 +1,5 @@
+const Status = require('../../common/status');
+
 /*
 fonction d'ajout de l'état d'une dépendance au status courant
  */
@@ -93,12 +95,8 @@ class StatusBuilder {
   /**
    * construit un nouveau builder sans dépendances
    */
-  constructor() {
-    this._status = {
-      status: "undefined",
-      dependencies: [
-      ]
-    };
+  constructor(description) {
+    this._status = new Status(description);
     this._mandatoryDependenciesFn = [];
     this._optionalDependenciesFn = [];
   }

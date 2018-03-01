@@ -109,7 +109,7 @@ function version(req, res) {
  * @param res réponse json décrivant l'état du service et de ses dépendances
  */
 function status(req, res) {
-  new StatusBuilder()
+  new StatusBuilder("Service horseRef")
     .addDependencie(require('../helpers/dbStatus'))
     .getStatus()
     .then(status => res.json(status));
