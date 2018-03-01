@@ -9,11 +9,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /(\.js|\.jsx)$/,
         include: path.resolve(__dirname, "client"),
         loader: "babel-loader"
-      }
-    ]
+      },
+      {
+        test: /\.css$/,
+        include: path.resolve(__dirname, "client"),
+        loader: "style-loader!css-loader"
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(['ui']),

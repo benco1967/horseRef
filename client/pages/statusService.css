@@ -1,0 +1,27 @@
+
+.status-block {
+  border: .1em solid #55b55e;
+}
+header {
+  background-color: #55b55e;
+  padding: .5em;
+}
+
+button {
+  background-color: #55b55e;
+  border-radius: .35em;
+  border: .1em solid #408c47;
+  padding: .4em .9em;
+  font-size: 75%;
+}
+button:focus {
+  outline: 0;
+}
+button:hover {
+  border: .1em solid #55b55e;
+  background-color: #408c47;
+}
+button:active {
+  border: .1em solid #408c47;
+  background-color: #408c47;
+}
