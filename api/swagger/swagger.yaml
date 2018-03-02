@@ -32,6 +32,11 @@ securityDefinitions:
     type: apiKey
     name: Authorization
     in: header
+  Basic:
+    description: For accessing the API a valid username & password must be passed in all the queries header.
+    type: basic
+  BasicAdm:
+    type: basic
 paths:
   /admin:
     x-swagger-router-controller: admin
@@ -163,6 +168,7 @@ paths:
       operationId: getAdminSettings
       security:
         - BearerAdm: []
+        - BasicAdm: []
       x-security:
         roles: [adm]
       produces:
@@ -196,6 +202,7 @@ paths:
       operationId: setAdminSettings
       security:
         - BearerAdm: []
+        - BasicAdm: []
       x-security:
         roles: [adm]
       consumes:
@@ -243,6 +250,7 @@ paths:
       operationId: getAllTenants
       security:
         - BearerAdm: []
+        - BasicAdm: []
       x-security:
         roles: [adm]
       produces:
@@ -277,6 +285,7 @@ paths:
       operationId: createTenant
       security:
         - BearerAdm: []
+        - BasicAdm: []
       x-security:
         roles: [adm]
       consumes:
@@ -322,6 +331,7 @@ paths:
       x-tenantLoader: tenant
       security:
         - BearerAdm: []
+        - BasicAdm: []
       x-security:
         roles: [adm]
       produces:
@@ -365,6 +375,7 @@ paths:
       x-tenantLoader: tenant
       security:
         - BearerAdm: []
+        - BasicAdm: []
       x-security:
         roles: [adm]
       consumes:
@@ -416,6 +427,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, mng]
       produces:
@@ -460,6 +472,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, mng]
       consumes:
@@ -513,6 +526,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, mng]
       produces:
@@ -557,6 +571,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, mng]
       consumes:
@@ -611,6 +626,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, mng]
       produces:
@@ -657,6 +673,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, snd]
       consumes:
@@ -704,6 +721,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, mng]
       produces:
@@ -754,6 +772,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, snd]
       consumes:
@@ -803,6 +822,7 @@ paths:
       x-tenantDisabler: true
       security:
         - Bearer: []
+        - Basic: []
       x-security:
         roles: [adm, snd]
       consumes:

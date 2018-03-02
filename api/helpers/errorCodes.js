@@ -1,19 +1,34 @@
 'use strict';
 
-const error = require('debug')("horsesRef:error");
+const error = require('debug')("notifSender:error");
 
+class Code {
+  constructor(name, status, message) {
+    this.name = name;
+    this.status = status;
+    this.message = message;
+  }
+  setRes(res, err) {
+    res.status(this.status).json({ name: err && err.name || this.name, message: err && err.message || err || this.message })
+  }
+}
+class C401 extends Code {
+  setRes(res, err) {
+    res.header("WWW-Authenticate", `Basic realm="Authentication requise", charset="UTF-8"`);
+    super.setRes(res, err);
+  }
+}
 const CODES = {
-  BAD_REQUEST      : { name: 'BAD_REQUEST'      , status: 400, message: "Bad request" },
-  UNAUTHORIZED     : { name: 'UNAUTHORIZED'     , status: 401, message: "Access denied, invalid token" },
-  FORBIDDEN        : { name: 'FORBIDDEN'        , status: 403, message: "Access not allowed for this accreditation" },
-  NOT_FOUND        : { name: 'NOT_FOUND'        , status: 404, message: "No such tenant" },
-  ALREADY_EXISTS   : { name: 'ALREADY_EXISTS'   , status: 409, message: "" },
-  FORBIDDEN_ID     : { name: 'FORBIDDEN_ID'     , status: 409, message: "" },
-  GONE             : { name: 'GONE'             , status: 410, message: "This tenant is no more available" },
-  UNKNOW           : { name: 'UNKNOW'           , status: 500, message: "" },
-  NOT_IMPLEMENTED  : { name: 'NOT_IMPLEMENTED'  , status: 501, message: "Service not implemented" },
-  UNABLE_TO_CONNECT: { name: 'UNABLE_TO_CONNECT', status: 503, message: "Service unavailable, DB unreachable" },
-  };
+  BAD_REQUEST      : new Code('BAD_REQUEST'      , 400, "Bad request"),
+  UNAUTHORIZED     : new C401('UNAUTHORIZED'     , 401, "Access denied, invalid token"),
+  FORBIDDEN        : new Code('FORBIDDEN'        , 403, "Access not allowed for this accreditation"),
+  NOT_FOUND        : new Code('NOT_FOUND'        , 404, "No such tenant"),
+  ALREADY_EXISTS   : new Code('ALREADY_EXISTS'   , 409, ""),
+  FORBIDDEN_ID     : new Code('FORBIDDEN_ID'     , 409, ""),
+  GONE             : new Code('GONE'             , 410, "This tenant is no more available"),
+  UNKNOW           : new Code('UNKNOW'           , 500, ""),
+  UNABLE_TO_CONNECT: new Code('UNABLE_TO_CONNECT', 503, "Service unavailable, DB unreachable"),
+};
 
 module.exports = {
   BAD_REQUEST      : Symbol.for('BAD_REQUEST'      ),
@@ -24,23 +39,16 @@ module.exports = {
   FORBIDDEN_ID     : Symbol.for('FORBIDDEN_ID'     ),
   GONE             : Symbol.for('GONE'             ),
   UNKNOW           : Symbol.for('UNKNOW'           ),
-  NOT_IMPLEMENTED  : Symbol.for('NOT_IMPLEMENTED'  ),
   UNABLE_TO_CONNECT: Symbol.for('UNABLE_TO_CONNECT'),
-
   /**
    * Fonction convertisant une erreur interne en une erreur http
    * @param res la réponse contenant le json de l'erreur
    * @param err l'erreur de type { code : Symbol, message: "xxx" }
    */
   codeToResponse: (res, err) => {
-    const code = CODES[err && err.code && Symbol.keyFor(err.code)] || CODES.UNKNOW;
+    const code = CODES[err && err.code && typeof err.code === "symbol" && Symbol.keyFor(err.code)] || CODES.UNKNOW;
     error(`Internal error : (${code.name}) ${err && err.message && JSON.stringify(err) || err}`);
-    res.status(code.status).json({ name: err && err.name || code.name, message: err && err.message || err || code.message });
-  },
-  errorToResponse: (res, status, msg) => {
-    const code = CODES[Symbol.keyFor(status)];
-    error(`Internal error : (${code.name}) ${msg || code.message}`);
-    res.status(code.status).json({ name: code.name, message: msg || code.message });
+    code.setRes(res, err);
   },
   error: (status, msg) => {
     const code = CODES[Symbol.keyFor(status)];
