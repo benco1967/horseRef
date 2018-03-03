@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Status from '../common/models/status';
-import {StatusService} from "./pages/statusService";
+import {StatusService} from "./pages/status/statusService";
 
 
 if (process.env.NODE_ENV !== 'production') {
