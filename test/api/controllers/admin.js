@@ -50,8 +50,8 @@ describe('controllers admin general', () => {
               name: 'horsesRef',
               version: v => v.should.match({
                   number: /^\d*\.\d*\.\d*$/,
-                  build_type: /^(debug|release)$/,
-                  build_number: /^\d*$/
+                  type: /^(debug|release)$/,
+                  build: /^\d*$/
                 })
             });
             done();

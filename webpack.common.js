@@ -27,6 +27,7 @@ module.exports = {
     new CleanWebpackPlugin(['ui']),
     new CopyWebpackPlugin([
       { from: './client/styles.css', to: 'css/'},
+      { from: './client/assets/*.png', to: 'assets/', flatten: true},
     ]),
     new HtmlWebpackPlugin({
       title: 'horseRef',

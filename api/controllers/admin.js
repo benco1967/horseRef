@@ -1,5 +1,7 @@
 'use strict';
 
+const Version = require("../../common/models/version");
+
 const links = require('../helpers/linkBuilder');
 const StatusBuilder = require('../helpers/statusBuilder');
 const ROLES = require('../models/groupRoleMapping').ROLES;
@@ -92,14 +94,7 @@ function general(req, res) {
  */
 function version(req, res) {
   //TODO mettre la version et notamment le build_number dynamiquement
-  res.json({
-    name: "horsesRef",
-    version: {
-      number: "0.0.0",
-      build_number: "0",
-      build_type: "debug"
-    }
-  });
+  res.json(new Version("horsesRef", "0.1.0"));
 }
 /**
  * Méthode pour /admin/status

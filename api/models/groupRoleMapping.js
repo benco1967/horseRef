@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Role = require('../../common/models/role');
 /**
  * Retourne un validateur asynchrone (qui retourne une promesse).
  * Le type de rôle est testé en fonction du paramètre.
@@ -34,70 +35,18 @@ const validator = forAdm => groupRoleMapping =>
  * Liste des rôles du service avec leurs  descriptions
  */
 const ROLES = [
-  {
-    id: "adm",
-    label: "admin",
-    title: [
-      {
-        locale: "fr",
-        text: "Super administrateur du service"
-      }
-    ],
-    summary: [
-      {
-        locale: "fr",
-        text: "Ce rôle donne accès à la gestion globale du service"
-      }
-    ]
-  },
-  {
-    id: "mng",
-    label: "manager",
-    title: [
-      {
-        locale: "fr",
-        text: "Administrateur de tenant"
-      }
-    ],
-    summary: [
-      {
-        locale: "fr",
-        text: "Ce rôle donne accès à la gestion d'un tenant de service"
-      }
-    ]
-  },
-  {
-    id: "ins",
-    label: "instructor",
-    title: [
-      {
-        locale: "fr",
-        text: "Moniteur"
-      }
-    ],
-    summary: [
-      {
-        locale: "fr",
-        text: "Ce rôle donne accès au service"
-      }
-    ]
-  },
-  {
-    id: "usr",
-    label: "user",
-    title: [
-      {
-        locale: "fr",
-        text: "Utilisateur enregistré"
-      }
-    ],
-    summary: [
-      {
-        locale: "fr",
-        text: "Ce rôle donne accès à l'utilisation au service à l'exception de l'envoi de sms"
-      }
-    ]
-  },
+  new Role("adm", "admin")
+    .addTitle("fr", "Super administrateur du service")
+    .addSummary("fr", "Ce rôle donne accès à la gestion globale du service"),
+  new Role("mng", "manager")
+    .addTitle("fr", "Administrateur de tenant")
+    .addSummary("fr", "Ce rôle donne accès à la gestion d'un tenant de service"),
+  new Role("ins", "instructor")
+    .addTitle("fr", "Moniteur")
+    .addSummary("fr", "Ce rôle donne accès au service"),
+  new Role("usr", "user")
+    .addTitle("fr", "Utilisateur enregistré")
+    .addSummary("fr", "Ce rôle donne accès à l'utilisation au service à l'exception de l'envoi de sms"),
 ];
 
 module.exports = {
