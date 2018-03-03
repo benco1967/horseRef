@@ -3,5 +3,19 @@
     "user": "myusername",
     "pwd": "mypassword",
     "dbName": "horsesRef"
+  },
+  "auth": {
+    "basic": {
+      "users": [
+        {
+          "userId": "admin",
+          "username": "admin",
+          "password": "admin",
+          "groups": {
+            "admin": ["admin"]
+          }
+        }
+      ]
+    }
   }
 }

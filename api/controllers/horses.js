@@ -53,8 +53,8 @@ function createHorse(req, res) {
 
   if(horseModel.validator(req.body)) {
     const tenant = getParam(req, "tenant", "value");
-    const authorization = getParam(req, "authorization");
-    horseModel.update(null, authorization.Usr, tenant.id, req.body)
+    const user = getParam(req, "user");
+    horseModel.update(null, user.userId, tenant.id, req.body)
       .then(id => {
         debug(`new horse ${id} created`);
         res
@@ -83,8 +83,8 @@ function updateHorse(req, res) {
   if(horseModel.validator(req.body)) {
     const horseId = req.swagger.params.horseId.value;
     const tenant = getParam(req, "tenant", "value");
-    const authorization = getParam(req, "authorization");
-    horseModel.update(horseId, authorization.Usr, tenant.id, req.body)
+    const user = getParam(req, "user");
+    horseModel.update(horseId, user.userId, tenant.id, req.body)
       .then(() => {
         res.status(200).end();
       })
@@ -99,8 +99,8 @@ function updateHorse(req, res) {
 function patchHorse(req, res) {
   const horseId = req.swagger.params.horseId.value;
   const tenant = getParam(req, "tenant", "value");
-  const authorization = getParam(req, "authorization");
-  horseModel.patch(horseId, authorization.Usr, tenant.id, req.body)
+  const user = getParam(req, "user");
+  horseModel.patch(horseId, user.userId, tenant.id, req.body)
     .then(() => {
       res.status(200).end();
     })

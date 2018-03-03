@@ -5,9 +5,23 @@
     "dbName": "horsesRef"
   },
   "auth": {
-    "secret": "secret",
-    "issuer": "test",
-    "audience": "test",
+    "bearer": {
+      "secret": "secret",
+      "issuer": "test",
+      "audience": "test"
+    },
+    "basic": {
+      "users": [
+        {
+          "userId": "admin",
+          "username": "admin",
+          "password": "admin",
+          "groups": {
+            "admin": ["admin"]
+          }
+        }
+      ]
+    },
     "adminGroupRoleMapping" : { "all": [ "adm", "mng", "ins", "usr" ] }
   },
   "sign": {

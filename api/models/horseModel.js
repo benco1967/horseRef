@@ -6,7 +6,8 @@ const NOT_FOUND = require('../helpers/errorCodes').NOT_FOUND;
 const checkDB = require('./dbConnection').checkDB;
 const jsonpatch = require('fast-json-patch');
 const uuid = require('uuid/v4');
-const ajv = new require('ajv')();
+const Ajv = require('ajv');
+const ajv = new Ajv();
 const patchModel = require('./patchModel');
 const validateJsonPatch = patchModel.validateJsonPatch;
 
@@ -21,14 +22,14 @@ const getAll = (tenantId) => checkDB()
     .sort({ date: 1 })      //trie les resultats par date
     .unwind("$patch")      //applati tous les patch
     .group({ _id: "$id", patch: { $push:"$patch" } }) // regroupe tous les patch en un tableau
-    .exec()
-    .then(result => {
-      const horses = [];
-      for(let r of result) {
-        horses.push(jsonpatch.applyPatch({ tenantId, id: r._id }, r.patch).newDocument);
-      }
-      return horses;
-    }));
+    .exec())
+  .then(result => {
+    const horses = [];
+    for(let r of result) {
+      horses.push(jsonpatch.applyPatch({ tenantId, id: r._id }, r.patch).newDocument);
+    }
+    return horses;
+  });
 /**
  *
  */
@@ -39,18 +40,32 @@ const get = (tenantId, id) => checkDB()
     .sort({ date: 1 })      //trie les resultats par date
     .unwind("$patch")      //applati tous les patch
     .group({ _id: "$id", patch: { $push:"$patch" } }) // regroupe tous les patch en un tableau
-    .exec()
-    .then(result => {
-      if(result === null || result.length === 0) {
-        // No such horse
-        return null;
-      }
-      if(result.length !== 1) {
-        throw error(BAD_REQUEST, `Horses db integrity error ${id} (${result.length})`);
-      }
-      //reconstruction du cheval
-      return jsonpatch.applyPatch({ tenantId, id }, result[0].patch).newDocument;
-    }));
+    .exec())
+  .then(result => {
+    if(result === null || result.length === 0) {
+      // No such horse
+      return null;
+    }
+    if(result.length !== 1) {
+      throw error(BAD_REQUEST, `Horses db integrity error ${id} (${result.length})`);
+    }
+    //reconstruction du cheval
+    return jsonpatch.applyPatch({ tenantId, id }, result[0].patch).newDocument;
+  });
+
+const createPatch = (horseId, tenantId, userId, prevHorse, newHorse) => {
+  const patch = jsonpatch.compare(prevHorse, newHorse);
+  return patch.length === 0 ?
+    Promise.resolve(prevHorse.id) :
+    horsePatchModel.create({
+      id: horseId,
+      tenantId,
+      userId,
+      date: new Date(),
+      patch,
+    })
+      .then((entry) => entry.id);
+};
 
 const update = (horseId, userId, tenantId, newHorse) => get(tenantId, horseId || newHorse.id || "")
   .then(prevHorse => {
@@ -76,15 +91,8 @@ const update = (horseId, userId, tenantId, newHorse) => get(tenantId, horseId ||
     }
     newHorse = Object.assign(defaultHorse, newHorse, { updatedAt: new Date() });
 
-    return horsePatchModel.create({
-      id: horseId,
-      tenantId,
-      userId,
-      date: new Date(),
-      patch: jsonpatch.compare(prevHorse, newHorse)
-    });
-  })
-  .then(entry => entry.id);
+    return createPatch(horseId, tenantId, userId, prevHorse, newHorse);
+  });
 
 const patch = (horseId, userId, tenantId, patch) => get(tenantId, horseId || "")
   .then(prevHorse => {
@@ -95,16 +103,10 @@ const patch = (horseId, userId, tenantId, patch) => get(tenantId, horseId || "")
       throw error(BAD_REQUEST, 'bad patch format');
     }
     const newHorse = jsonpatch.applyPatch(Object.assign({}, prevHorse, { updatedAt: new Date() }), patch).newDocument;
+    //TODO check horse schema
 
-    return horsePatchModel.create({
-      id: horseId,
-      tenantId,
-      userId,
-      date: new Date(),
-      patch: jsonpatch.compare(prevHorse, newHorse)
-    });
-  })
-  .then(entry => entry.id);
+    return createPatch(horseId, tenantId, userId, prevHorse, newHorse);
+  });
 
 // make this available in our Node applications
 module.exports = {
