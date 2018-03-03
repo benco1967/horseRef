@@ -1,4 +1,4 @@
-const Status = require('../../common/status');
+const Status = require('../../common/models/status');
 
 /*
 fonction d'ajout de l'état d'une dépendance au status courant

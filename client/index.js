@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Status from '../common/status';
+import Status from '../common/models/status';
 import {StatusService} from "./pages/statusService";
 
 
@@ -15,6 +15,6 @@ status.status = "warning";
 ReactDOM.render(
 
   <StatusService status={status}/>,
-  document.body
+  document.getElementById("app")
 );
 

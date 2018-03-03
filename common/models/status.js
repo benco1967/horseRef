@@ -5,4 +5,4 @@ module.exports = class Status {
     this.dependencies = [];
     this.status = 'undefined';
   };
-}
+};
