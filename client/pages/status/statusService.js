@@ -1,6 +1,7 @@
 
 import React from 'react';
 import {StatusDescription} from "./statusDescription";
+import {CollapseBlock} from "../../components/collapseBlock";
 
 export class StatusService extends React.Component {
 
@@ -8,13 +9,10 @@ export class StatusService extends React.Component {
     return this.props.status.dependencies.map((dependency, i) => <li key={i}><StatusDescription status={dependency}/></li>);
   }
   render() {
-    return <div className="block">
-      <header>
-        <StatusDescription status={this.props.status}/>
-      </header>
+    return <CollapseBlock title={<StatusDescription status={this.props.status}/>} >
       <ul>
         {this.renderDependencies()}
       </ul>
-    </div>;
+    </CollapseBlock>;
   }
 }

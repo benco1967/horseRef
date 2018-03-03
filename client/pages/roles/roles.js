@@ -1,5 +1,6 @@
 
 import React from 'react';
+import {CollapseBlock} from "../../components/collapseBlock";
 
 export class Roles extends React.Component {
   renderDependencies() {
@@ -10,13 +11,10 @@ export class Roles extends React.Component {
       </li>);
   }
   render() {
-    return <div className="block">
-      <header>
-        Roles
-      </header>
+    return <CollapseBlock title="Roles">
       <ul>
         {this.renderDependencies()}
       </ul>
-    </div>;
+    </CollapseBlock>;
   }
 }

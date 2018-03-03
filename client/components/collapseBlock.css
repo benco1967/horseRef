@@ -1,0 +1,17 @@
+
+.block .toggle,
+.block .toggle:hover,
+.block .toggle:active {
+  background-color: #00000000;
+  font-size: 150%;
+  border: 0 solid #00000000;
+  cursor: pointer;
+  right:0;
+  top: -.25em;
+  position: absolute;
+  width: 1em;
+}
+
+.block.collapse header>div {
+  position: relative;
+}

@@ -34,7 +34,8 @@ body {
 .block header a:hover {
   background-color: #00000008;
 }
-.block a.button, .block a.button:visited, .block a.button:link {
+.block a.button, .block a.button:visited, .block a.button:link,
+.block button.button {
   color: black;
   text-decoration: none;
   background-color: #00000000;
@@ -43,14 +44,17 @@ body {
   padding: .4em .9em;
   font-size: 75%;
 }
-.block a.button:focus {
+.block a.button:focus,
+.block button.button:focus{
   outline: 0;
 }
-.block a.button:hover {
+.block a.button:hover,
+.block button.button:hover{
   border: .1em solid #00000066;
   background-color: #00000011;
 }
-.block a.button:active {
+.block a.button:active,
+.block button.button:active {
   border: .1em solid #00000033;
   background-color: #00000011;
 }
