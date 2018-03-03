@@ -1,15 +1,14 @@
 
 import React from 'react';
 import {StatusDescription} from "./statusDescription";
-import './statusService.css';
 
 export class StatusService extends React.Component {
 
   renderDependencies() {
-    return this.props.status.dependencies.map(dependency => <li><StatusDescription status={dependency}/></li>);
+    return this.props.status.dependencies.map((dependency, i) => <li key={i}><StatusDescription status={dependency}/></li>);
   }
   render() {
-    return <div className="status-block">
+    return <div className="block">
       <header>
         <StatusDescription status={this.props.status}/>
       </header>

@@ -1,0 +1,61 @@
+/* Application-wide Styles */
+
+h1 {
+  color: #55b55e;
+  font-size: 150%;
+}
+
+body {
+  margin: 2em;
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.block {
+  border: .1em solid #55b55e;
+  margin: 1em 0 0 0;
+  border-radius: .5em;
+}
+
+.block header {
+  background-color: #55b55e;
+  padding: .5em;
+  border-radius: .3em .3em 0 0;
+}
+.block.simple-block header {
+  border-radius: .3em;
+}
+
+.block header a:link, .block header a:visited {
+  color: #333344;
+}
+.block header a:hover {
+  background-color: #00000008;
+}
+.block a.button, .block a.button:visited, .block a.button:link {
+  color: black;
+  text-decoration: none;
+  background-color: #00000000;
+  border-radius: .5em;
+  border: .1em solid #00000033;
+  padding: .4em .9em;
+  font-size: 75%;
+}
+.block a.button:focus {
+  outline: 0;
+}
+.block a.button:hover {
+  border: .1em solid #00000066;
+  background-color: #00000011;
+}
+.block a.button:active {
+  border: .1em solid #00000033;
+  background-color: #00000011;
+}
+
+.block  p {
+  padding: .3em;
+  margin: 0;
+}
