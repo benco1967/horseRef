@@ -5,7 +5,7 @@ import {Roles} from "./roles";
 
 export class RolesHttp extends SimpleService {
   constructor(props) {
-    super(props, []);
+    super(props, [], "/admin/roles");
 
   }
 

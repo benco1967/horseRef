@@ -5,7 +5,7 @@ import {SimpleService} from "../../services/simpleService";
 
 export class VersionHttp extends SimpleService {
   constructor(props) {
-    super(props, new VersionClass(props.name));
+    super(props, new VersionClass(props.name), "/admin/version");
 
   }
 

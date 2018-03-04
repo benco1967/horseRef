@@ -5,7 +5,7 @@ import {SimpleService} from "../../services/simpleService";
 
 export class StatusServiceHttp extends SimpleService {
   constructor(props) {
-    super(props, new Status(props.name));
+    super(props, new Status(props.name), "/admin/status");
   }
 
   render() {

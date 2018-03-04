@@ -4,7 +4,7 @@ import {SimpleService} from "../../services/simpleService";
 
 export class LicenseHttp extends SimpleService {
   constructor(props) {
-    super(props, "");
+    super(props, "", "admin/license");
 
   }
 

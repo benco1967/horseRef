@@ -1,14 +1,15 @@
 
 import React from 'react';
+import { Link } from "react-router-dom";
 
 export  class MainMenu extends React.Component {
 
   render() {
     return <div className="block simple-block">
       <header>
-        Administration du <a href="/ui/admin/service">service</a>
-        , des <a href="/ui/admin/tenants">tenants</a>
-        , ou des <a href="/ui/admin/engines">moteurs</a>
+        Administration du <Link to="/ui/admin/service">service</Link>
+        , ou des <Link to="/ui/admin/tenants">tenants</Link>
+        , page de <Link to="/ui/admin/status">status</Link>
       </header>
     </div>
   }

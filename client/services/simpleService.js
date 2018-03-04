@@ -3,9 +3,10 @@ import axios from 'axios';
 import React from 'react';
 
 export class SimpleService extends React.Component {
-  constructor(props, defaultValue) {
+  constructor(props, defaultValue, defaultUrl) {
     super(props);
     this.timerId = null;
+    this.defaultUrl = defaultUrl;
     this.defaultValue = defaultValue;
     this.state = {
       value: defaultValue,
@@ -28,7 +29,7 @@ export class SimpleService extends React.Component {
     });
   }
   tick() {
-    axios.get(this.props.url)
+    axios.get(this.props.url || this.defaultUrl)
       .then(res => {
         this.retrieveData(res.data);
       })

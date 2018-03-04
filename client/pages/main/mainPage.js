@@ -14,9 +14,9 @@ export class MainPage extends React.Component {
         <img src="/ui/assets/favicon.png" alt="" /> <VersionHttp url="/admin/version" name="horseRef" delai={0} />
       </h1>
       <MainMenu/>
-      <StatusServiceHttp url="/admin/status" description="Service horseRef"/>
-      <LicenseHttp url="/admin/license" delai={0} />
-      <RolesHttp url="/admin/roles" delai={0} />
+      <StatusServiceHttp description="Service horseRef"/>
+      <LicenseHttp delai={0} />
+      <RolesHttp delai={0} />
     </div>
   }
 }
