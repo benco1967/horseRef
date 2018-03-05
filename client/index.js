@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import {StatusServiceHttp} from "./pages/status/statusServiceHttp";
 import {TenantsPage} from "./pages/tenants/tenantsPage";
 import {ServicePage} from "./pages/service/servicePage";
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 if (process.env.NODE_ENV !== 'production') {
