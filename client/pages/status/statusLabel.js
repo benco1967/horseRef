@@ -1,22 +1,21 @@
 
 import React from 'react';
-import './statusLabel.css';
+import { Badge } from 'reactstrap';
 
 export  class StatusLabel extends React.Component {
 
-  getClass() {
+  getColor() {
     switch(this.props.status) {
-      case 'ok':
-      case 'error':
-      case 'undefined':
+      case 'ok': return "success";
+      case 'error': return "danger";
+      case 'undefined': return "secondary";
       case 'unknow':
       case 'warning':
-        return 'status-label ' + this.props.status;
       default:
-        return 'status-label unknow';
+        return "warning";
     }
   }
   render() {
-    return <span className={this.getClass()}>{this.props.status}</span>;
+    return <Badge color={this.getColor()}>{this.props.status}</Badge>;
   }
 }

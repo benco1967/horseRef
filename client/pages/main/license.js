@@ -1,10 +1,11 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
 export class License extends React.Component {
 
   render() {
     return <div className="block simple-block">
-      <header>Licence <a className="button" href={this.props.licenseUrl} target="_blank">ouvrir</a></header>
+      <header>Licence <Button color="primary" size="sm">ouvrir</Button></header>
     </div>;
   }
 }

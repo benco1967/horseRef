@@ -4,7 +4,7 @@ export class Version extends React.Component {
 
   render() {
     return <span>
-      {this.props.name} <span style={{fontSize: "80%", color: "grey"}}>{this.props.version} ({this.props.build})</span>
+      {this.props.name} <small style={{color: "grey"}}>{this.props.version} ({this.props.build})</small>
     </span>;
   }
 }

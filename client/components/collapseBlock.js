@@ -1,6 +1,7 @@
 
 import React from 'react';
 import './collapseBlock.css';
+import {Collapse, Button} from 'reactstrap';
 
 export class CollapseBlock extends React.Component {
 
@@ -16,17 +17,22 @@ export class CollapseBlock extends React.Component {
     return this.state.open ? this.props.children : null;
   }
   render() {
-    const className = "block collapse" + (this.state.open ? "" : " simple-block");
+    const className = "block" + (this.state.open ? "" : " simple-block");
     return <div className={className}>
-      <header>
-        <div>{this.props.title}
-          <div className="toggle"
-                  onClick={this.handleToggle}>
-            {this.state.open ? "⏷" : "⏵"}
-          </div>
-        </div>
+      <header className="clearfix">
+        <div className="float-left">{this.props.title}</div>
+        <Button color="primary" className="float-right" onClick={this.handleToggle} size="sm">
+          {this.state.open ? "⏷" : "⏵"}
+        </Button>
       </header>
+      <Collapse isOpen={this.state.open}>
       {this.renderChildren()}
+      </Collapse>
+
+
+
+
+
     </div>;
   }
 }
