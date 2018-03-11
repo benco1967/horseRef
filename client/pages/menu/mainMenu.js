@@ -10,6 +10,7 @@ export  class MainMenu extends React.Component {
         Administration du <Link to="/ui/admin/service">service</Link>
         , ou des <Link to="/ui/admin/tenants">tenants</Link>
         , page de <Link to="/ui/admin/status">status</Link>
+        , page de <Link to="/ui/test/horses">chevaux test</Link>
       </header>
     </div>
   }

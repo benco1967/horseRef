@@ -37,6 +37,7 @@ SwaggerExpress.create(configSwagger, (err, swaggerExpress) => {
   app.use('/ui/admin/status', express.static(path.join(__dirname, 'ui')));
   app.use('/ui/admin/service', express.static(path.join(__dirname, 'ui')));
   app.use('/ui/admin/tenants', express.static(path.join(__dirname, 'ui')));
+  app.use('/ui/*/horses', express.static(path.join(__dirname, 'ui')));
   app.use('/ui/*', express.static(path.join(__dirname, 'ui')));
 
   app.listen(config.get('port'));
