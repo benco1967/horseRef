@@ -1,44 +1,46 @@
 // Your variable overrides
-$body-bg: #eeffee;
+$body-bg: #f6fffb;
 $body-color: #001600;
 $theme-colors: (
     "primary": #006b24
 );
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-
 h1 {
-  color: #55b55e;
+  color: map-get($theme-colors, "primary");
 }
 
 body {
   margin: 2em;
 }
 
-
 .block {
-  border: .1em solid #006b24;
+  border: .1em solid  map-get($theme-colors, "primary");
   margin: 1em 0 0 0;
   border-radius: .5em;
-}
 
-.block header {
-  background-color: #006b24;
-  padding: .5em;
-  border-radius: .3em .3em 0 0;
-}
-.block.simple-block header {
-  border-radius: .3em;
-}
+  header {
+    color: $body-bg;
+    background-color: map-get($theme-colors, "primary");
+    padding: .5em;
+    border-radius: .3em .3em 0 0;
+  }
+  &.simple-block header {
+    border-radius: .3em;
+  }
 
-.block header a:link, .block header a:visited {
-  color: #333344;
-}
-.block header a:hover {
-  background-color: rgba(0, 0, 0, .1);
-}
+  header a{
+    &:link, &:visited {
+    }
+    color: $body-bg;
 
-.block  p {
-  padding: .3em;
-  margin: 0;
+    &:hover {
+      background-color: rgba(255, 255, 255, .1);
+    }
+  }
+
+  p {
+    padding: .3em;
+    margin: 0;
+  }
 }
