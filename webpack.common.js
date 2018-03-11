@@ -29,7 +29,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['ui']),
+    new CleanWebpackPlugin(['ui'],{ watch: true }),
     new CopyWebpackPlugin([
       { from: './client/assets/*.png', to: 'assets/', flatten: true},
     ]),
@@ -40,7 +40,7 @@ module.exports = {
     }),
   ],
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'ui'),
   }
 };

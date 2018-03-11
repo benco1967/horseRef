@@ -18,8 +18,8 @@ const error403 = (errMsg, callback) => {
 
 const handleSuperAdmin = (adminGroupRoleMapping) => (req, user, callback) => {
   const groups = user.groups["admin"];
-  let isSuperAdmin = groups && groups.reduce((isAdmin, g) =>
-      isAdmin || adminGroupRoleMapping[g] && adminGroupRoleMapping[g].indexOf('adm') !== -1, false);
+  const isSuperAdmin = groups &&
+    groups.find(g =>adminGroupRoleMapping[g] && adminGroupRoleMapping[g].indexOf('adm') !== -1) !== undefined;
   if (isSuperAdmin) {
     // Super admin donne tous les droits
     user.roles = ['adm', 'mng', 'snd', 'usr'];
@@ -94,7 +94,7 @@ const authentification = (fn, req, callback, user) => {
   const allowedRoles = swagger.operation['x-allowedRoles'] || [];
 
   // Vérification que l'un des rôles dont dispose le token est autorisé
-  const accessGranted = allowedRoles.reduce((accessGranted, r) => accessGranted || roles.has(r), false);
+  const accessGranted = allowedRoles.find(r => roles.has(r));
   if (accessGranted) {
     // ok on ajoute les paramètres extrait (le token et les roles) et on passe la main au contrôleur
     createParam(req, "user", user);

@@ -44,16 +44,8 @@ const BasicSecurityHandler = (parameters, fn) =>
       const basicParameters = credential && Object.assign({},
         defaultParameters.basic,
         parameters && parameters.basic || undefined);
-      const user = credential && basicParameters.users.reduce((a, u) => {
-          if (a !== null) return a;
-          if (u.username === credential.name && checkPassword(u.password, credential.pass)) {
-            return {
-              userId: u.userId,
-              groups: u.groups,
-            }
-          }
-          return null;
-        }, null);
+      const user = credential &&
+        basicParameters.users.find(u => u.username === credential.name && checkPassword(u.password, credential.pass));
       if (user) {
         const adminGroupRoleMapping = (parameters && parameters || defaultParameters).adminGroupRoleMapping;
         authentification(fn(adminGroupRoleMapping), req, callback, user);
