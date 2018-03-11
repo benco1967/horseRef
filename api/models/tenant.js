@@ -5,6 +5,7 @@ const error = require('debug')("horsesRef:error:tenant");
 const mongoose = require('mongoose');
 const groupRoleMapping = require('./groupRoleMapping').schema(false);
 const checkDB = require('./dbConnection').checkDB;
+const Tenant = require('../../common/models/tenant');
 
 const ALREADY_EXISTS = require('../helpers/errorCodes').ALREADY_EXISTS;
 const NOT_FOUND = require('../helpers/errorCodes').NOT_FOUND;
@@ -97,25 +98,6 @@ const update = (idTenant, proj, value) =>
     });
 
 /**
- *
- * @param tenantId
- * @param description
- * @param contacts
- * @returns {{id: *, texts: {description: *}, createdAt: Date, updatedAt: Date, expiredAt, enable: boolean, lang: (*|string|string|locale), contacts: *, groupRoleMapping: {}, authentication: Array, settings: {}, adminSettings: {}}}
- */
-const _newTenant = (tenantId, description, contacts) => ({
-    id: tenantId,
-    texts: {description},
-    enable: true,
-    lang: description && description[0] && description[0].locale || 'fr',
-    contacts,
-    groupRoleMapping: {},
-    authentication: [],
-    settings: {},
-    adminSettings: {},
-  });
-
-/**
  * Create an empty tenant with the given id and description.
  * If the tenant already exists throws an exception with the appropriate code and message
  * @param tenantId id for the new tenant
@@ -136,7 +118,7 @@ const create = (tenantId, description, contacts) =>
         throw { name: "DBConnectionError", code: FORBIDDEN_ID, message: "Forbidden id" };
       }
       debug(`create the tenant "${tenantId}"`);
-      return TenantModel.create(_newTenant(tenantId, description, contacts));
+      return TenantModel.create(new Tenant(tenantId, description, contacts));
     });
 
 // make this available to our tenant in our Node applications
